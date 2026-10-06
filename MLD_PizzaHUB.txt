@@ -1,0 +1,24 @@
+MLD - PizzaHUB
+
+CLIENT (id_client, nom_client, prenom_client, telephone, email, adresse)
+  PK : id_client
+
+EMPLOYEE (id_employee, nom_employee, prenom_employee, role_occupe)
+  PK : id_employee
+
+PLAT (id_plat, nom_plat, description_plat, recette_plat, prix)
+  PK : id_plat
+
+COMMANDE (id_commande, date_heure_commande, mode_retrait, statut_avancement, #id_client, #id_employee)
+  PK : id_commande
+  FK : id_client -> CLIENT(id_client)
+  FK : id_employee -> EMPLOYEE(id_employee)
+
+FACTURE (id_facture, date_emission, montant_ht, montant_tva, montant_ttc, #id_commande)
+  PK : id_facture
+  FK : id_commande -> COMMANDE(id_commande) [UNIQUE]
+
+CONTENIR (#id_commande, #id_plat, quantite)
+  PK : (id_commande, id_plat)
+  FK : id_commande -> COMMANDE(id_commande)
+  FK : id_plat -> PLAT(id_plat)
