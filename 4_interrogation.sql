@@ -95,7 +95,7 @@ SELECT nom_client, prenom_client
 FROM CLIENT 
 WHERE id_client IN (SELECT id_client FROM COMMANDE);
 
--- Requête 17 : Utilisation de NOT IN pour identifier les clients enregistrés n'ayant jamais commandé (inactifs)
+-- Requête 17 : Utilisation de NOT IN pour identifier les clients enregistrés n'ayant jamais commandé
 SELECT nom_client, prenom_client 
 FROM CLIENT 
 WHERE id_client NOT IN (SELECT id_client FROM COMMANDE);
