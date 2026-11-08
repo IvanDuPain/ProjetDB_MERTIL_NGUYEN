@@ -53,3 +53,16 @@
 | Montant total toutes taxes comprises (TTC) | Décimal | 6 chiffres |
 | Numéro d'ordre de la ligne de détail | Numérique | 3 chiffres |
 | Sous-total facturé pour cette ligne | Décimal | 6 chiffres |
+
+## Scénario 
+
+rôle: Directeur de pizza hub 
+un peu de contexte: Chaque fin de mois, le directeur de la pizzeria réalise un point de gestion complet sur sa pizzeria. Il utilise la base de données pour gerer quatre taches de son quotidien : ajuster les prix de sa carte pour créer de nouvelles formules, connaître et relancer sa clientèle locale, gérer le travail de son équipe en cuisine et en salle, et boucler sa comptabilité mensuelle.
+
+Le directeur commence sa journée par une analyse de sa carte : il souhaite revoir l'équilibre de ses prix en repérant les pizzas situées dans la tranche moyenne (entre 10 € et 15 €), calculer le tarif moyen global de sa carte, et comparer les prix des plats avec ceux des boissons et des desserts italiens afin de concevoir une nouvelle formule « Menu Complet ».
+
+Ensuite, il se penche sur la gestion de sa clientèle : pour organiser ses tournées de livraison dans la capitale, il liste ses clients résidant à Paris. Il cherche aussi à dynamiser ses ventes en identifiant ses clients actifs, en récompensant ses clients habitués (ceux qui ont commandé plusieurs fois), et en relançant par SMS les clients inscrits qui n'ont encore jamais passé commande. Lorsqu'un client régulier comme Jean Dupont appelle la pizzeria, le directeur souhaite également pouvoir retrouver rapidement tout son historique de commandes pour lui proposer ses plats favoris.
+
+Côté organisation de la pizzeria et gestion de l'équipe, le directeur contrôle les flux de commandes à emporter et à livrer (Livraison et Click & Collect). Il vérifie les différents postes existants dans son équipe, contrôle le suivi en cuisine (savoir quel employé a préparé quel plat et pour quel client) et regarde la répartition des commandes par salarié pour repérer les employés qui n'ont été affectés à aucune commande (par exemple le personnel administratif ou les nouveaux embauchés).
+
+Enfin, il termine par le bilan financier et la facturation : il calcule le chiffre d'affaires total TTC de la pizzeria, compare le panier moyen selon le mode de retrait, vérifie les grosses factures (supérieures à 25 €) et s'assure auprès de son comptable que chaque commande enregistrée correspond bien à une facture émise.
