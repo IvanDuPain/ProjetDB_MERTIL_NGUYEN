@@ -1,0 +1,63 @@
+Donne les requêtes d’insertion permettant de remplir la base de données de mon projet Pizza HUB dont le modèle relationnel est le suivant :
+
+CLIENT = (id_client, nom_client, prenom_client, telephone, email, adresse)
+
+EMPLOYEE = (id_employee, nom_employee, prenom_employee, role_occupe)
+
+PLAT = (id_plat, nom_plat, description_plat, recette_plat, prix)
+
+COMMANDE = (id_commande, date_heure_commande, mode_retrait, statut_avancement, #id_client, #id_employee)
+
+FACTURE = (id_facture, date_emission, montant_ht, montant_tva, montant_ttc, #id_commande)
+
+CONTENIR = (#id_commande, #id_plat, quantite)
+
+Les clés primaires correspondent aux id (en AUTO_INCREMENT). Pour la table d'association CONTENIR, la clé primaire est composée de (#id_commande, #id_plat). Les clés étrangères sont identifiées par le symbole # et font référence aux tables correspondantes.
+
+Les clés étrangères doivent faire référence aux clés primaires existantes : donne les lignes en commençant par remplir les tables dans lesquelles il n'y a pas de clés étrangères (CLIENT, EMPLOYEE, PLAT), puis les tables dans lesquelles les clés étrangères font référence à des clés primaires des tables déjà remplies (COMMANDE, CONTENIR, FACTURE).
+
+Les données doivent être réalistes pour une pizzeria (pizzas, desserts et boissons uniquement dans la table PLAT) et respecter les contraintes de validation suivantes :
+
+USE Pizza_HUB;
+
+-- Format de l'email
+ALTER TABLE CLIENT
+ADD CONSTRAINT chk_client_email 
+CHECK (email REGEXP '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$');
+
+-- Format du numéro de téléphone
+ALTER TABLE CLIENT
+ADD CONSTRAINT chk_client_telephone 
+CHECK (telephone REGEXP '^[0-9]{10}$');
+
+-- Prix du plat > 0
+ALTER TABLE PLAT
+ADD CONSTRAINT chk_plat_prix 
+CHECK (prix > 0);
+
+-- Detail mode de retrait
+ALTER TABLE COMMANDE
+ADD CONSTRAINT chk_commande_mode_retrait 
+CHECK (mode_retrait IN ('livraison', 'emporter', 'sur place'));
+
+-- Commande = (quantite >= 1)
+ALTER TABLE CONTENIR
+ADD CONSTRAINT chk_contenir_quantite 
+CHECK (quantite >= 1);
+
+-- Les montants >= 0
+ALTER TABLE FACTURE
+ADD CONSTRAINT chk_facture_montant_ht 
+CHECK (montant_ht >= 0);
+
+ALTER TABLE FACTURE
+ADD CONSTRAINT chk_facture_montant_tva 
+CHECK (montant_tva >= 0);
+
+ALTER TABLE FACTURE
+ADD CONSTRAINT chk_facture_montant_ttc 
+CHECK (montant_ttc >= montant_ht);
+
+Fais en sorte que les montants de la table FACTURE correspondent parfaitement aux plats et aux quantités commandés dans CONTENIR . Génère une quinzaine de clients et de commandes.
+
+Fournis l'ensemble sous la forme d’un script SQL prêt à être exécuté.
