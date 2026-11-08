@@ -23,12 +23,15 @@ USE Pizza_HUB;
 -- Format de l'email
 ALTER TABLE CLIENT
 ADD CONSTRAINT chk_client_email 
-CHECK (email REGEXP '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$');
+CHECK (email LIKE '%@%.%');
 
 -- Format du numéro de téléphone
 ALTER TABLE CLIENT
 ADD CONSTRAINT chk_client_telephone 
-CHECK (telephone REGEXP '^[0-9]{10}$');
+CHECK (
+    telephone LIKE '__________' 
+    AND telephone NOT LIKE '%[a-zA-Z]%'
+);
 
 -- Prix du plat > 0
 ALTER TABLE PLAT
