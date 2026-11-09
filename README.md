@@ -82,3 +82,64 @@ Ensuite, il se penche sur la gestion de sa clientèle : pour organiser ses tourn
 Côté organisation de la pizzeria et gestion de l'équipe, le directeur contrôle les flux de commandes à emporter et à livrer (Livraison et Click & Collect). Il vérifie les différents postes existants dans son équipe, contrôle le suivi en cuisine (savoir quel employé a préparé quel plat et pour quel client) et regarde la répartition des commandes par salarié pour repérer les employés qui n'ont été affectés à aucune commande (par exemple le personnel administratif ou les nouveaux embauchés).
 
 Enfin, il termine par le bilan financier et la facturation : il calcule le chiffre d'affaires total TTC de la pizzeria, compare le panier moyen selon le mode de retrait, vérifie les grosses factures (supérieures à 25 €) et s'assure auprès de son comptable que chaque commande enregistrée correspond bien à une facture émise.
+
+## I. Arbre non optimisé
+
+```mermaid
+graph BT
+    CLIENT["CLIENT<br/>15 rows"]
+    COMMANDE["COMMANDE<br/>15 rows"]
+    CONTENIR["CONTENIR<br/>34 rows"]
+    PLAT["PLAT<br/>12 rows"]
+
+    J1["( ⋈ CLIENT.id_client = COMMANDE.id_client )<br/>15 rows"]
+    J2["( ⋈ COMMANDE.id_commande = CONTENIR.id_commande )<br/>34 rows"]
+    J3["( ⋈ CONTENIR.id_plat = PLAT.id_plat )<br/>34 rows"]
+
+    SEL["σ nom_client = 'Leroy' ∧ prenom_client = 'Alice'<br/>2 rows"]
+    PROJ["π nom_plat, quantite, date_heure_commande<br/>2 rows"]
+
+    CLIENT --> J1
+    COMMANDE --> J1
+    J1 --> J2
+    CONTENIR --> J2
+    J2 --> J3
+    PLAT --> J3
+    J3 --> SEL
+    SEL --> PROJ
+```
+
+## II. Plan d'exécution optimisé
+```mermaid
+graph BT
+    CLIENT["CLIENT<br/>15 rows"]
+    COMMANDE["COMMANDE<br/>15 rows"]
+    CONTENIR["CONTENIR<br/>34 rows"]
+    PLAT["PLAT<br/>12 rows"]
+
+    SEL1["σ nom_client = 'Leroy' ∧ prenom_client = 'Alice'<br/>1 row"]
+    PROJ1["π id_client<br/>1 row"]
+
+    J1["( ⋈ CLIENT.id_client = COMMANDE.id_client )<br/>1 row"]
+    PROJ2["π id_commande, date_heure_commande<br/>1 row"]
+
+    J2["( ⋈ COMMANDE.id_commande = CONTENIR.id_commande )<br/>2 rows"]
+    PROJ3["π id_plat, quantite, date_heure_commande<br/>2 rows"]
+
+    PROJ4["π id_plat, nom_plat<br/>12 rows"]
+
+    J3["( ⋈ CONTENIR.id_plat = PLAT.id_plat )<br/>2 rows"]
+    PROJ5["π nom_plat, quantite, date_heure_commande<br/>2 rows"]
+
+    CLIENT --> SEL1
+    SEL1 --> PROJ1
+    PROJ1 --> J1
+    COMMANDE --> J1
+    J1 --> PROJ2
+    PROJ2 --> J2
+    CONTENIR --> J2
+    J2 --> PROJ3
+    PROJ3 --> J3
+    PLAT --> PROJ4
+    PROJ4 --> J3
+    J3 --> PROJ5
