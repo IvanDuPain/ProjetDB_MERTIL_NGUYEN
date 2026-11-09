@@ -1,6 +1,18 @@
 # Projet Pizza HUB - Recueil des Besoins et Dictionnaire de Données
 
-## Prompt IA utilisé
+# Partie 1 : Conception et Modélisation Conceptuelle (MCD)
+
+## I. Modèle Logique de Données (MLD)
+
+CLIENT = (id_client, nom_client, prenom_client, telephone, email, adresse);
+EMPLOYEE = (id_employee, nom_employee, prenom_employee, role_occupe);
+COMMANDE = (id_commande, date_heure_commande, mode_retrait, statut_avancement, #id_client, #id_employee);
+PLAT = (id_plat, nom_plat, description_plat, recette_plat, prix);
+FACTURE = (id_facture, date_emission, montant_ht, montant_tva, montant_ttc, #id_commande);
+
+CONTENIR = (#id_commande, #id_plat, quantite);
+
+# Partie 2 :  Prompt IA utilisé
 
 > Tu travailles dans le domaine de la pizzeria. Ta Pizza HUB a comme activité de vente de pizza. C’est une entreprise comme Dominos Pizza, Pizza HUT. Les commandes, les employés, plats, client, Administrateur, facture. Inspire-toi de l’enseigne suivant : pepe chicken ( dark kitchen) 
 > Ton entreprise veut appliquer MERISE pour concevoir un système d'information. Tu es chargé de la partie analyse, c’est-à-dire de collecter les besoins auprès de l’entreprise. Elle a fait appel à un étudiant en ingénierie informatique pour réaliser ce projet, tu dois lui fournir les informations nécessaires pour qu’il applique ensuite lui-même les étapes suivantes de conception et développement de la base de données. D’abord, établis les règles de gestions des données de ton entreprise, sous la forme d'une liste à puce. Elle doit correspondre aux informations que fournit quelqu’un qui connaît le fonctionnement de l’entreprise, mais pas comment se construit un système d’information. 
@@ -54,7 +66,7 @@
 | Numéro d'ordre de la ligne de détail | Numérique | 3 chiffres |
 | Sous-total facturé pour cette ligne | Décimal | 6 chiffres |
 
-## Scénario 
+# Partie 3 : Scénario 
 
 rôle: Directeur de pizza hub 
 un peu de contexte: Chaque fin de mois, le directeur de la pizzeria réalise un point de gestion complet sur sa pizzeria. Il utilise la base de données pour gerer quatre taches de son quotidien : ajuster les prix de sa carte pour créer de nouvelles formules, connaître et relancer sa clientèle locale, gérer le travail de son équipe en cuisine et en salle, et boucler sa comptabilité mensuelle.
