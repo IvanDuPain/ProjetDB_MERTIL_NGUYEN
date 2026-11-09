@@ -83,7 +83,7 @@ Côté organisation de la pizzeria et gestion de l'équipe, le directeur contrô
 
 Enfin, il termine par le bilan financier et la facturation : il calcule le chiffre d'affaires total TTC de la pizzeria, compare le panier moyen selon le mode de retrait, vérifie les grosses factures (supérieures à 25 €) et s'assure auprès de son comptable que chaque commande enregistrée correspond bien à une facture émise.
 
-## I. Arbre non optimisé
+## I. Plan d'exécution initial (Non optimisé)
 
 ```mermaid
 graph BT
