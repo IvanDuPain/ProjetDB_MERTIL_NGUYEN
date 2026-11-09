@@ -6,4 +6,4 @@ PLAT = (id_plat, nom_plat, description_plat, recette_plat, prix);
 FACTURE = (id_facture, date_emission, montant_ht, montant_tva, montant_ttc, #id_commande);
 
 PASSER = (#id_client, #id_commande);
-CONTENIR = (#id_commande, #id_plat, contenir);
+CONTENIR = (#id_commande, #id_plat, quantite);
