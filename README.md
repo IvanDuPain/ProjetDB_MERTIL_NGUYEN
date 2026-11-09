@@ -5,9 +5,13 @@
 ## I. Modèle Logique de Données (MLD)
 
 CLIENT = (id_client, nom_client, prenom_client, telephone, email, adresse);
+
 EMPLOYEE = (id_employee, nom_employee, prenom_employee, role_occupe);
+
 COMMANDE = (id_commande, date_heure_commande, mode_retrait, statut_avancement, #id_client, #id_employee);
+
 PLAT = (id_plat, nom_plat, description_plat, recette_plat, prix);
+
 FACTURE = (id_facture, date_emission, montant_ht, montant_tva, montant_ttc, #id_commande);
 
 CONTENIR = (#id_commande, #id_plat, quantite);
